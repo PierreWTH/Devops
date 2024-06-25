@@ -1,0 +1,107 @@
+<html>
+  <head>
+    <title>Axe Compétences</title>
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">---</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="./account.html">Mon compte</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container mt-5">
+
+      <h1 class="text-center mb-4">Mon entreprise</h1>
+      <div class="accordion" id="instructionsAccordion">
+        <div class="card">
+          <div class="card-header" id="headingOne">
+            <h2 class="mb-0">
+              <button class="btn btn-link" type="button" data-toggle="collapse"
+                data-target="#collapseOne" aria-expanded="true"
+                aria-controls="collapseOne">
+                Mode d'emploi
+              </button>
+            </h2>
+          </div>
+
+          <div id="collapseOne" class="collapse"
+            aria-labelledby="headingOne" data-parent="#instructionsAccordion">
+            <div class="card-body">
+              Cette grille de diagnostic non exhaustive, permet d'avoir un
+              premier regard sur la capacité de votre entreprise à accompagner
+              le mouvement face aux mutations que peut rencontrer celle-ci. Pour
+              "mesurer" la maturité de votre entreprise, nous vous proposons 3
+              axes d'observation :
+              <ul>
+                <li>les compétences des collaborateurs</li>
+                <li>la réactivité</li>
+                <li>le numérique</li>
+              </ul>
+              Dans le dernier onglet, vous trouverez des questions pour analyser
+              plus spécifiquement les transformations numériques rencontrées
+              dans votre métier. Ainsi, choisissez la catégorie professionnelle
+              qui se rapproche le plus de votre métier (performance
+              industrielle, QSE, RH...).
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-4">
+        <a class="btn btn-success" href="../form/form1.html">Créer une nouvelle grille</a>
+      </div>
+
+      <section id="latest-evaluations" class="mt-5">
+        <h2>Mes dernières évaluations</h2>
+        <div class="list-group">
+          <a href="../data/report.html?id=1" class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">Évaluation 1</h5>
+              <small>3 jours</small>
+            </div>
+            <p class="mb-1">Description de l'évaluation 1.</p>
+          </a>
+          <a href="../data/report.html?id=2" class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">Évaluation 2</h5>
+              <small>5 jours</small>
+            </div>
+            <p class="mb-1">Description de l'évaluation 2.</p>
+          </a>
+          <a href="../data/report.html?id=3" class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">Évaluation 3</h5>
+              <small>1 semaine</small>
+            </div>
+            <p class="mb-1">Description de l'évaluation 3.</p>
+          </a>
+        </div>
+      </section>
+    </div>
+    <script
+      src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>
