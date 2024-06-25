@@ -16,20 +16,17 @@ class ScoreFixtures extends Fixture implements DependentFixtureInterface
       $synthesis = $this->getReference('synthesis_' . $i);
 
       for ($j = 1; $j <= 63; $j++) {
-        // $question = $this->getReference('question_' . ($j));
         $score = new Score();
         $score->setGrade(mt_rand(0, 2));
         $score->setComment('This is a comment for score ' . ($i * 63 + $j));
         $score->setSynthesis($synthesis);
-        // $score->setQuestion($question);
 
         // Fetch a Question from reference set by QuestionFixtures if applicable
         if ($this->hasReference('question_' . $j)) {
           $question = $this->getReference('question_' . $j);
           $score->setQuestion($question);
+          $manager->persist($score);
         }
-
-        $manager->persist($score);
       }
     }
 

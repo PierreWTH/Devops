@@ -49,6 +49,7 @@ class HomeController extends AbstractController
       $axises[$axis->getId()]['cats'][$cat->getId()]['content'] = $cat;
       $axises[$axis->getId()]['cats'][$cat->getId()]['couples'][] = $couple;
     }
+    sort($axises);
 
     if (!$synthesis) {
       throw $this->createNotFoundException('No synthesis found for id ' . $id);
