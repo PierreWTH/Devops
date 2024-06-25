@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CompanyRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -30,6 +32,20 @@ class Company implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+
+    /**
+     * @var Collection<int, Synthesis>
+     */
+    #[ORM\OneToMany(targetEntity: Synthesis::class, mappedBy: 'company')]
+    private Collection $syntheses;
+
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
+
+    public function __construct()
+    {
+        $this->syntheses = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -104,5 +120,47 @@ class Company implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection<int, Synthesis>
+     */
+    public function getSyntheses(): Collection
+    {
+        return $this->syntheses;
+    }
+
+    public function addSynthesis(Synthesis $synthesis): static
+    {
+        if (!$this->syntheses->contains($synthesis)) {
+            $this->syntheses->add($synthesis);
+            $synthesis->setCompany($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSynthesis(Synthesis $synthesis): static
+    {
+        if ($this->syntheses->removeElement($synthesis)) {
+            // set the owning side to null (unless already changed)
+            if ($synthesis->getCompany() === $this) {
+                $synthesis->setCompany(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
+
+        return $this;
     }
 }
