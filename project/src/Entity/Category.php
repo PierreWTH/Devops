@@ -24,6 +24,9 @@ class Category
     #[ORM\OneToMany(targetEntity: Question::class, mappedBy: 'category')]
     private Collection $questions;
 
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
+
     public function __construct()
     {
         $this->questions = new ArrayCollection();
@@ -72,6 +75,18 @@ class Category
                 $question->setCategory(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
 
         return $this;
     }

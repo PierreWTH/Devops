@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Votre compte
+{% endblock %}
+
+{% block body %}
+  <div class="container mt-5">
+
+    <h1 class="text-center mb-4">Mon entreprise</h1>
+    <div class="accordion" id="instructionsAccordion">
+      <div class="card">
+        <div class="card-header" id="headingOne">
+          <h2 class="mb-0">
+            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              Mode d'emploi
+            </button>
+          </h2>
+        </div>
+
+        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#instructionsAccordion">
+          <div class="card-body">
+            Cette grille de diagnostic non exhaustive, permet d'avoir un
+                        premier regard sur la capacité de votre entreprise à accompagner
+                        le mouvement face aux mutations que peut rencontrer celle-ci. Pour
+                        "mesurer" la maturité de votre entreprise, nous vous proposons 3
+                        axes d'observation :
+            <ul>
+              <li>les compétences des collaborateurs</li>
+              <li>la réactivité</li>
+              <li>le numérique</li>
+            </ul>
+            Dans le dernier onglet, vous trouverez des questions pour analyser
+                        plus spécifiquement les transformations numériques rencontrées
+                        dans votre métier. Ainsi, choisissez la catégorie professionnelle
+                        qui se rapproche le plus de votre métier (performance
+                        industrielle, QSE, RH...).
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-4">
+      <a class="btn btn-success" href="../form/form1.html">Créer une nouvelle grille</a>
+    </div>
+
+    <section id="latest-evaluations" class="mt-5">
+      <h2>Mes dernières évaluations</h2>
+      <div class="list-group">
+        {% for synthesis in syntheses %}
+          <a href="/synthesis/{{ synthesis.id }}" class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">Évaluation {{ synthesis.id }}</h5>
+            </div>
+            <p class="mb-1">{{ synthesis.created|date("m/d/Y") }}</p>
+          </a>
+        {% endfor %}
+      </div>
+    </section>
+  </div>
+{% endblock %}
