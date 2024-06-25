@@ -30,7 +30,7 @@ class HomeController extends AbstractController
     ]);
   }
 
-  #[Route('/synthesis/{id}', name: 'product_show')]
+  #[Route('/synthesis/{id}', name: 'synthesis')]
   public function show($id): Response
   {
     $synthesis = $this->synthesisRepository->find($id);
