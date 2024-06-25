@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\SynthesisRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SynthesisRepository::class)]
@@ -15,9 +16,6 @@ class Synthesis
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $created = null;
-
     #[ORM\ManyToOne(inversedBy: 'syntheses')]
     private ?Company $company = null;
 
@@ -27,6 +25,9 @@ class Synthesis
     #[ORM\OneToMany(targetEntity: Score::class, mappedBy: 'synthesis', orphanRemoval: true)]
     private Collection $scores;
 
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $created = null;
+
     public function __construct()
     {
         $this->scores = new ArrayCollection();
@@ -35,18 +36,6 @@ class Synthesis
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getCreated(): ?string
-    {
-        return $this->created;
-    }
-
-    public function setCreated(string $created): static
-    {
-        $this->created = $created;
-
-        return $this;
     }
 
     public function getCompany(): ?Company
@@ -87,6 +76,18 @@ class Synthesis
                 $score->setSynthesis(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreated(): ?\DateTimeInterface
+    {
+        return $this->created;
+    }
+
+    public function setCreated(\DateTimeInterface $created): static
+    {
+        $this->created = $created;
 
         return $this;
     }
