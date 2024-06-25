@@ -11,33 +11,32 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ScoreRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Score::class);
-    }
+  public function __construct(ManagerRegistry $registry)
+  {
+    parent::__construct($registry, Score::class);
+  }
 
-    //    /**
-    //     * @return Score[] Returns an array of Score objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('s')
-    //            ->andWhere('s.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('s.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+  /**
+   * @return Score[] Returns an array of Score objects
+   */
+  public function findBySynthesis($synthesisId): array
+  {
+    return $this->createQueryBuilder('s')
+      ->andWhere('s.synthesis = :val')
+      ->setParameter('val', $synthesisId)
+      ->orderBy('s.id', 'ASC')
+      // ->setMaxResults(10)
+      ->getQuery()
+      ->getResult();
+  }
 
-    //    public function findOneBySomeField($value): ?Score
-    //    {
-    //        return $this->createQueryBuilder('s')
-    //            ->andWhere('s.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+  //    public function findOneBySomeField($value): ?Score
+  //    {
+  //        return $this->createQueryBuilder('s')
+  //            ->andWhere('s.exampleField = :val')
+  //            ->setParameter('val', $value)
+  //            ->getQuery()
+  //            ->getOneOrNullResult()
+  //        ;
+  //    }
 }

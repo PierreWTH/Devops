@@ -25,7 +25,7 @@ class Score
     private ?Synthesis $synthesis = null;
 
     #[ORM\ManyToOne(inversedBy: 'scores')]
-    private ?Question $questions = null;
+    private ?Question $question = null;
 
     public function getId(): ?int
     {
@@ -68,14 +68,14 @@ class Score
         return $this;
     }
 
-    public function getQuestions(): ?Question
+    public function getQuestion(): ?Question
     {
-        return $this->questions;
+        return $this->question;
     }
 
-    public function setQuestions(?Question $questions): static
+    public function setQuestion(?Question $question): static
     {
-        $this->questions = $questions;
+        $this->question = $question;
 
         return $this;
     }
