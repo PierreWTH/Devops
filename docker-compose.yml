@@ -25,16 +25,6 @@ services:
     networks:
       - dev_docker_symfony
 
-  maildev:
-    image: maildev/maildev
-    container_name: maildev_docker_symfony
-    command: bin/maildev --web 80 --smtp 25 --hide-extensions STARTTLS
-    ports:
-      - "8081:80"
-    restart: always
-    networks:
-      - dev_docker_symfony
-
   www:
     build: php
     container_name: www_docker_symfony
