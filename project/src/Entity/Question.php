@@ -18,15 +18,15 @@ class Question
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $text = null;
+    
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $answer0 = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $answer1 = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $answer2 = null;
-
-    #[ORM\Column(type: Types::TEXT)]
-    private ?string $answer3 = null;
 
     #[ORM\ManyToOne(inversedBy: 'questions')]
     private ?Category $category = null;
@@ -83,14 +83,14 @@ class Question
         return $this;
     }
 
-    public function getAnswer3(): ?string
+    public function getAnswer0(): ?string
     {
-        return $this->answer3;
+        return $this->answer0;
     }
 
-    public function setAnswer3(string $answer3): static
+    public function setAnswer0(string $answer0): static
     {
-        $this->answer3 = $answer3;
+        $this->answer0 = $answer0;
 
         return $this;
     }
