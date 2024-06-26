@@ -24,9 +24,17 @@ class HomeController extends AbstractController
   public function index(): Response
   {
     $syntheses = $this->synthesisRepository->findByUser();
+    /** @var \App\Entity\Company $company */
+    if ($company = $this->getUser()) {
+      $companyName = $company->getName();
+    }
+    else {
+      $companyName = NULL;
+    }
 
     return $this->render('home/account.html.twig', [
       'syntheses' => $syntheses,
+      'company_name' => $companyName,
     ]);
   }
 
