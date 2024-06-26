@@ -2,6 +2,10 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use Symfony\Component\Serializer\Attribute\Groups;
 use App\Repository\SynthesisRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -9,14 +13,25 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SynthesisRepository::class)]
+#[ApiResource(
+    operations: [
+        new Get(normalizationContext: ['groups' => 'synthesis:item']),
+        new GetCollection(normalizationContext: ['groups' => 'synthesis:list'])
+    ],
+    paginationEnabled: false,
+    order: ['id' => 'ASC'],
+    forceEager: false,
+)]
 class Synthesis
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['synthesis:list', 'synthesis:item'])]
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'syntheses')]
+    #[Groups(['synthesis:list', 'synthesis:item'])]
     private ?Company $company = null;
 
     /**
@@ -26,6 +41,7 @@ class Synthesis
     private Collection $scores;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Groups(['company:list', 'company:item'])]
     private ?\DateTimeInterface $created = null;
 
     public function __construct()
