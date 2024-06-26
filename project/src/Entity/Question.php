@@ -2,6 +2,10 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use Symfony\Component\Serializer\Attribute\Groups;
 use App\Repository\QuestionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -9,26 +13,40 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: QuestionRepository::class)]
+#[ApiResource(
+        operations: [
+            new Get(normalizationContext: ['groups' => 'question:item']),
+            new GetCollection(normalizationContext: ['groups' => 'question:list'])
+        ],
+        paginationEnabled: false,
+        order: ['id' => 'ASC'],
+    )]
 class Question
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['question:list', 'question:item'])]
     private ?int $id = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(['question:list', 'question:item'])]
     private ?string $text = null;
     
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(['question:list', 'question:item'])]
     private ?string $answer0 = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(['question:list', 'question:item'])]
     private ?string $answer1 = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(['question:list', 'question:item'])]
     private ?string $answer2 = null;
 
     #[ORM\ManyToOne(inversedBy: 'questions')]
+    #[Groups(['question:list', 'question:item'])]
     private ?Category $category = null;
 
     /**
@@ -119,7 +137,7 @@ class Question
     {
         if (!$this->scores->contains($score)) {
             $this->scores->add($score);
-            $score->setQuestions($this);
+            $score->setQuestion($this);
         }
 
         return $this;
@@ -129,8 +147,8 @@ class Question
     {
         if ($this->scores->removeElement($score)) {
             // set the owning side to null (unless already changed)
-            if ($score->getQuestions() === $this) {
-                $score->setQuestions(null);
+            if ($score->getQuestion() === $this) {
+                $score->setQuestion(null);
             }
         }
 

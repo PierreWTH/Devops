@@ -2,6 +2,10 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use Symfony\Component\Serializer\Attribute\Groups;
 use App\Repository\CompanyRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -11,20 +15,31 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: CompanyRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
+#[ApiResource(
+    operations: [
+        new Get(normalizationContext: ['groups' => 'company:item']),
+        new GetCollection(normalizationContext: ['groups' => 'company:list'])
+    ],
+    order: ['name' => 'ASC'],
+    paginationEnabled: false,
+)]
 class Company implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['company:list', 'company:item'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 180)]
+    #[Groups(['company:list', 'company:item'])]
     private ?string $email = null;
 
     /**
      * @var list<string> The user roles
      */
     #[ORM\Column]
+    #[Groups(['company:list', 'company:item'])]
     private array $roles = [];
 
     /**
@@ -37,9 +52,11 @@ class Company implements UserInterface, PasswordAuthenticatedUserInterface
      * @var Collection<int, Synthesis>
      */
     #[ORM\OneToMany(targetEntity: Synthesis::class, mappedBy: 'company')]
+    #[Groups(['company:list', 'company:item'])]
     private Collection $syntheses;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['company:list', 'company:item'])]
     private ?string $name = null;
 
     public function __construct()
