@@ -18,6 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
     ],
     paginationEnabled: false,
     order: ['id' => 'ASC'],
+    forceEager: false,
 )]
 class Score
 {

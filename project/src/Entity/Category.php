@@ -19,17 +19,17 @@ use Doctrine\ORM\Mapping as ORM;
     ],
     order: ['name' => 'ASC'],
     paginationEnabled: false,
+    forceEager: false,
 )]
 class Category
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['category:list', 'category:item'])]
+    #[Groups(['category:list', 'category:item', 'axis:list', 'axis:item'])]
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'categories')]
-    #[Groups(['category:list', 'category:item'])]
     private ?Axis $axis = null;
 
     /**
@@ -39,7 +39,7 @@ class Category
     private Collection $questions;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['category:list', 'category:item'])]
+    #[Groups(['category:list', 'category:item', 'axis:list', 'axis:item'])]
     private ?string $name = null;
 
     public function __construct()

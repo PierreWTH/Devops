@@ -22,6 +22,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
     ],
     order: ['name' => 'ASC'],
     paginationEnabled: false,
+    forceEager: false,
 )]
 class Company implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -56,7 +57,7 @@ class Company implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $syntheses;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['company:list', 'company:item'])]
+    #[Groups(['company:list', 'company:item', 'synthesis:list', 'synthesis:item'])]
     private ?string $name = null;
 
     public function __construct()

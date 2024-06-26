@@ -13,9 +13,10 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AxisRepository::class)]
 #[ApiResource(
+    forceEager: false,
     operations: [
         new Get(normalizationContext: ['groups' => 'axis:item']),
-        new GetCollection(normalizationContext: ['groups' => 'axis:list'])
+        new GetCollection(normalizationContext: ['groups' => ['axis:list']])
     ],
     order: ['id' => 'ASC'],
     paginationEnabled: false,
