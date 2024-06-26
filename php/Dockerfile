@@ -16,6 +16,9 @@ RUN docker-php-ext-configure intl
 RUN docker-php-ext-install pdo pdo_mysql gd opcache intl zip calendar dom mbstring xsl
 RUN pecl install apcu && docker-php-ext-enable apcu
 
+RUN curl -sL https://deb.nodesource.com/setup_21.x | bash
+RUN apt-get install nodejs -yqq
+
 WORKDIR /var/www/
 
 # Copy entrypoint script
