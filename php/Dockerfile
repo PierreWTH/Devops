@@ -13,7 +13,17 @@ RUN curl -sSk https://getcomposer.org/installer | php -- --disable-tls && \
     mv composer.phar /usr/local/bin/composer
 
 RUN docker-php-ext-configure intl
-RUN docker-php-ext-install pdo pdo_mysql gd opcache intl zip calendar dom mbstring zip gd xsl
+RUN docker-php-ext-install pdo pdo_mysql gd opcache intl zip calendar dom mbstring xsl
 RUN pecl install apcu && docker-php-ext-enable apcu
 
 WORKDIR /var/www/
+
+# Copy entrypoint script
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# Set the entrypoint script
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+
+# Run Apache in the foreground
+CMD ["apache2-foreground"]

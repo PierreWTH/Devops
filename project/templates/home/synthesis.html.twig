@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Votre compte
+{% endblock %}
+
+{% block body %}
+  <div class="container mt-5">
+    {% for axis in axises %}
+      <h2>{{ axis.content.name }}</h2>
+      <table class="table table-bordered">
+        <thead class="thead-light">
+          <tr>
+            <th>Items</th>
+            <th>Questionnements</th>
+            <th>Score</th>
+            <th>Commentaires</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for cat in axis.cats %}
+            {% for delta, couple in cat.couples %}
+              <tr>
+                {% if delta == 0 %}
+                  <td rowspan="{{ cat.couples|length }}">{{ cat.content.name }}</td>
+                {% endif %}
+                <td>{{ couple.question.text }}</td>
+                <td>{{ couple.score.grade }}</td>
+                <td>{{ couple.score.comment }}</td>
+              </tr>
+            {% endfor %}
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endfor %}
+  </div>
+{% endblock %}
