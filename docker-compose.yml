@@ -1,3 +1,4 @@
+version: "3"
 services:
   db:
     image: mysql
@@ -37,7 +38,7 @@ services:
 
 networks:
   dev_docker_symfony:
-    name: dev_docker_symfony
+    # name: dev_docker_symfony
 
 volumes:
   db-data:
