@@ -5,30 +5,47 @@
 
 {% block body %}
   <div class="container mt-5">
-    <h2 >Axe ...</h2>
+    <h2>{{axis.name}}</h2>
+
     {{ form_start(form) }}
-      <table class="table table-bordered">
-          <thead class="thead-light">
-              <tr>
-                  <th>Items</th>
-                  <th>Questionnements</th>
-                  <th>2</th>
-                  <th>1</th>
-                  <th>0</th>
-              </tr>
-          </thead>
-          <tbody>
-              {% for field in form %}
-                  {% if field.vars.name != 'submit' %}
-                      <tr>
-                          <td>{{ field.vars.label }}</td>
-                          <td>{{ form_widget(field) }}</td>
-                      </tr>
-                  {% endif %}
-              {% endfor %}
-          </tbody>
-      </table>
-      {{ form_widget(form.submit) }}
-    {{ form_end(form) }}
+    <table class="table table-bordered">
+      <thead class="thead-light">
+        <tr>
+          <th>Items</th>
+          <th>Questionnements</th>
+          <th>2</th>
+          <th>1</th>
+          <th>0</th>
+					<th>Commentaire</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% set i = 0 %}
+        {% for category in categories %}
+					{% for delta, question in category.questions %}
+            <tr>
+              {% if delta == 0 %}
+                <td rowspan="{{ category.questions|length }}">{{ category.name }}</td>
+              {% endif %}
+              <td>{{ question.text }}</td>
+              <td>
+                <input type="radio" id="{{ idPrefix ~ "_question_" ~ i ~ "_0" }}" name="{{ idPrefix ~ "[question_" ~ i ~ "]" }}" required="required" value="2">
+              </td>
+              <td>
+                <input type="radio" id="{{ idPrefix ~ "_question_" ~ i ~ "_1" }}" name="{{ idPrefix ~ "[question_" ~ i ~ "]" }}" required="required" value="1">
+              </td>
+							<td>
+                <input type="radio" id="{{ idPrefix ~ "_question_" ~ i ~ "_2" }}" name="{{ idPrefix ~ "[question_" ~ i ~ "]" }}" required="required" value="0">
+              </td>
+							<td>{{ form_widget(form['comment_' ~ i]) }}</td>
+            </tr> 
+            {% set i = i + 1 %}
+          {% endfor %}
+        {% endfor %}
+      </tbody>
+    </table>
+    {{ form_widget(form.submit) }}
+    {{ form_end(form, {'render_rest': false}) }}
+
   </div>
 {% endblock %}
