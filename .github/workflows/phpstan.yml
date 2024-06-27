@@ -38,7 +38,7 @@ jobs:
     #   working-directory: project
 
     - name: Init DB
-      run: docker exec www_docker_symfony bash -c "sh ./php/entrypoint.sh"
+      run: docker exec www_docker_symfony bash -c "sh ./php/init_db.sh"
       # working-directory: project
 
     - name: Run PHPStan
