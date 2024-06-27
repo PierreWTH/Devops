@@ -1,7 +1,7 @@
 parameters:
     level: 4
     paths:
-        - src
+        - project/src
     bootstrapFiles:
         - %rootDir%/../../autoload.php
     parallel:
