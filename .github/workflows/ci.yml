@@ -33,7 +33,7 @@ jobs:
 
       - name: Setup DATABASE_URL in .env
         working-directory: ./project
-        run: echo "DATABASE_URL=mysql://root:root@127.0.0.1:3306/db_docker_symfony?serverVersion=5.7&charset=utf8mb4" >> .env
+        run: sed -i '' 's|echo "DATABASE_URL=.*|echo "DATABASE_URL=mysql://root:root@127.0.0.1:3306/db_docker_symfony?serverVersion=5.7&charset=utf8mb4" >> .env
 
       - name: Setup DB
         working-directory: ./project
