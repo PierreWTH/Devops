@@ -20,5 +20,5 @@ jobs:
           php-version: 8.2
 
       - name: Run PHPStan
-        run: vendor/bin/phpstan analyse --configuration=phpstan.neon
+        run: php ../vendor/bin/phpstan analyse --configuration=../phpstan.neon
         working-directory: project
