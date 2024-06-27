@@ -26,14 +26,14 @@ jobs:
         with:
           php-version: 8.2
 
+      - name: Setup DATABASE_URL in .env
+        working-directory: ./project
+        run: sed -i 's|#DATABASE_URL="mysql://root:@db_docker_symfony:3306/transverse"|DATABASE_URL="mysql://root:root@127.0.0.1:3306/db_symfony_docker?serverVersion=5.7"|' .env
+
       - name: Setup composer
         working-directory: ./project
         run: |
           composer install --ignore-platform-req=php
-
-      - name: Setup DATABASE_URL in .env
-        working-directory: ./project
-        run: sed -i '' 's|echo "DATABASE_URL=.*|echo "DATABASE_URL=mysql://root:root@127.0.0.1:3306/db_docker_symfony?serverVersion=5.7&charset=utf8mb4" >> .env
 
       - name: Setup DB
         working-directory: ./project
