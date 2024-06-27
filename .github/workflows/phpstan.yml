@@ -21,7 +21,7 @@ jobs:
         tools: composer
 
     - name: Install dependencies
-      run: composer install --prefer-dist --no-suggest
+      run: composer install --prefer-dist --no-progress
 
     - name: Run PHPStan
       run: composer phpstan
