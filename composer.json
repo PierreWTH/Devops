@@ -1,0 +1,5 @@
+{
+    "require-dev": {
+        "symfony/test-pack": "^1.1"
+    }
+}
