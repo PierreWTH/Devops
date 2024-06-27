@@ -10,9 +10,23 @@ jobs:
   phpstan:
     runs-on: ubuntu-latest
 
+    services:
+      db:
+        image: mysql:8.4
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: transverse
+          MYSQL_USER: root
+          MYSQL_PASSWORD: ''
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+
+    - name: Set up Docker Compose
+      run: docker-compose up -d
 
     - name: Set up PHP
       uses: shivammathur/setup-php@v2
