@@ -14,9 +14,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install Composer dependencies
-        run: composer install --no-scripts --no-progress --no-interaction
-        working-directory: project
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
 
       - name: Run PHPStan
         run: vendor/bin/phpstan analyse --configuration=phpstan.neon
