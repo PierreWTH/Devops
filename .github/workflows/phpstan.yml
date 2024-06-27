@@ -25,7 +25,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Set up Docker Compose
-      run: docker-compose up -d
+      run: docker-compose up -d --build
 
     - name: Set up PHP
       uses: shivammathur/setup-php@v2
@@ -38,7 +38,7 @@ jobs:
     #   working-directory: project
 
     - name: Init DB
-      run: docker exec -it www_docker_symfony bash -c "sh ./php/entrypoint.sh"
+      run: docker exec -T www_docker_symfony bash -c "sh ./php/entrypoint.sh"
       # working-directory: project
 
     - name: Run PHPStan
