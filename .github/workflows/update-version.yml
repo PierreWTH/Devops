@@ -29,6 +29,9 @@ jobs:
           echo "VERSION=$VERSION" >> $GITHUB_ENV
         working-directory: project
 
+      - name: test
+        run: echo ${{ secrets.ACTIONS_TOKEN }}
+
       - name: Create Git tag
         if: env.VERSION != ''
         env:
