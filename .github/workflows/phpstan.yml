@@ -10,37 +10,12 @@ jobs:
   phpstan:
     runs-on: ubuntu-latest
 
-    services:
-      db:
-        image: mysql:8.4
-        ports:
-          - 3306:3306
-        env:
-          MYSQL_ROOT_PASSWORD: ''
-          MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-          MYSQL_DATABASE: transverse
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up Docker Compose
-      run: docker-compose up -d --build
+      - name: Install Composer dependencies
+        run: composer install --no-scripts --no-progress --no-interaction
 
-    - name: Set up PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.2'
-        tools: composer
-
-    # - name: Install dependencies
-    #   run: composer install --prefer-dist --no-progress
-    #   working-directory: project
-
-    - name: Init DB
-      run: docker exec www_docker_symfony bash -c "sh ./php/init_db.sh"
-      # working-directory: project
-
-    - name: Run PHPStan
-      run: composer phpstan
-      working-directory: project
+      - name: Run PHPStan
+        run: vendor/bin/phpstan analyse --configuration=phpstan.neon
