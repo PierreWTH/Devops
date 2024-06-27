@@ -22,6 +22,8 @@ jobs:
 
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
+      working-directory: project
 
     - name: Run PHPStan
       run: composer phpstan
+      working-directory: project
