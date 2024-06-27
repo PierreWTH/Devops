@@ -12,7 +12,7 @@ jobs:
         image: mysql:5.7
         env:
           MYSQL_ROOT_PASSWORD: "root"
-          MYSQL_DATABASE: db_docker_symfony
+          MYSQL_DATABASE: db_docker_symfony_test
         ports:
           - 3306:3306
         # wait for db
