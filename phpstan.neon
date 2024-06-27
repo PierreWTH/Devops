@@ -1,0 +1,9 @@
+includes:
+    - project/vendor/phpstan/phpstan/conf/bleedingEdge.neon
+
+parameters:
+    level: max
+    paths:
+        - project/src
+    bootstrapFiles:
+        - %rootDir%/../../project/vendor/autoload.php
