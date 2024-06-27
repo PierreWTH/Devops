@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Company;
 use App\Repository\ScoreRepository;
 use App\Repository\SynthesisRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,7 +24,7 @@ class HomeController extends AbstractController
   public function index(): Response
   {
     $syntheses = $this->synthesisRepository->findByUser();
-    /** @var Company $company */
+    /** @var \App\Entity\Company|null $company */
     if ($company = $this->getUser()) {
       $companyName = $company->getName();
     }
