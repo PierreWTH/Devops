@@ -27,6 +27,7 @@ jobs:
         run: |
           VERSION=$(jq -r .version composer.json)
           echo "VERSION=$VERSION" >> $GITHUB_ENV
+        working-directory: project
 
       - name: Create Git tag
         if: env.VERSION != ''
