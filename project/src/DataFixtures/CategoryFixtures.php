@@ -36,9 +36,9 @@ class CategoryFixtures extends Fixture implements DependentFixtureInterface
   public const BTP_REFERENCE = 'btp';
   public const QSERSE_REFERENCE = 'qserse';
 
-    
+
   public function load(ObjectManager $manager): void
-    {   
+    {
         // Axe compétence
 
         $category = new Category;
@@ -88,7 +88,7 @@ class CategoryFixtures extends Fixture implements DependentFixtureInterface
         $category->setAxis($this->getReference(AxisFixtures::REACTIVIY_REFERENCE));
         $this->addReference(self::VEILLE_REFERENCE, $category);
         $manager->persist($category);
-        
+
         // Axe numérique
 
         $category = new Category;
@@ -111,7 +111,7 @@ class CategoryFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::MANAGEMENT_REFERENCE, $category);
 
         $manager->persist($category);
-        
+
         // Analyse numérique par métier
 
         $category = new Category;
@@ -149,9 +149,9 @@ class CategoryFixtures extends Fixture implements DependentFixtureInterface
         $category->setAxis($this->getReference(AxisFixtures::ANALYSIS_REFERENCE));
         $this->addReference(self::QSERSE_REFERENCE, $category);
         $manager->persist($category);
-        
-        $manager->flush($category);
-        
+
+        $manager->flush();
+
     }
 
     public function getDependencies()
