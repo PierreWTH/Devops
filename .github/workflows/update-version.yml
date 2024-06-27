@@ -1,4 +1,4 @@
-name: Update Version from .env
+name: Update Version from composer.json
 
 on:
   push:
@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v2
 
       - name: Setup PHP
@@ -31,8 +31,10 @@ jobs:
 
       - name: Create Git tag
         if: env.VERSION != ''
+        env:
+          ACTIONS_TOKEN: ${{ secrets.ACTIONS_TOKEN }}
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git tag ${{ env.VERSION }}
-          git push origin ${{ env.VERSION }}
+          git push https://x-access-token:${{ secrets.ACTIONS_TOKEN }}@github.com/${{ github.repository }}.git ${{ env.VERSION }}
