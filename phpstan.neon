@@ -4,3 +4,5 @@ parameters:
         - src
     bootstrapFiles:
         - %rootDir%/../../project/vendor/autoload.php
+    parallel:
+        maximumNumberOfProcesses: 1
