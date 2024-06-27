@@ -12,7 +12,7 @@ jobs:
         image: mysql:5.7
         env:
           MYSQL_ROOT_PASSWORD: "root"
-          MYSQL_DATABASE: db_docker_symfony
+          MYSQL_DATABASE: "db_docker_symfoyny"
         ports:
           - 3306:3306
         # wait for db
@@ -38,7 +38,7 @@ jobs:
       - name: Setup DB
         working-directory: ./project
         run: |
-          mysql -h 127.0.0.1 -u root -proot -e "DROP DATABASE IF EXISTS db_transverse_test"
+          mysql -h 127.0.0.1 -u root -proot -e "DROP DATABASE IF EXISTS db_docker_test"
           mysql -h 127.0.0.1 -u root -proot -e "CREATE DATABASE db_transverse_test"
 
       - name: Load fixtures
