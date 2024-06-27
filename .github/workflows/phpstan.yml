@@ -16,6 +16,8 @@ jobs:
 
       - name: Install Composer dependencies
         run: composer install --no-scripts --no-progress --no-interaction
+        working-directory: project
 
       - name: Run PHPStan
         run: vendor/bin/phpstan analyse --configuration=phpstan.neon
+        working-directory: project
