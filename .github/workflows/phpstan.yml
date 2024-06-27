@@ -23,9 +23,6 @@ jobs:
         run: composer install
         working-directory: project
 
-      - name: test
-        run: pwd && ls
-
       - name: Run PHPStan
         run: php ./project/vendor/bin/phpstan analyse --configuration=phpstan.neon
         # working-directory: project
