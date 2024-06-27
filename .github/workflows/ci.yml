@@ -38,8 +38,8 @@ jobs:
       - name: Setup DB
         working-directory: ./project
         run: |
-          mysql -h 127.0.0.1 -u root -proot -e "DROP DATABASE IF EXISTS db_docker_symfony"
-          mysql -h 127.0.0.1 -u root -proot -e "CREATE DATABASE db_docker_symfony"
+          mysql -h 127.0.0.1 -u root -proot -e "DROP DATABASE IF EXISTS db_docker_symfony_test"
+          mysql -h 127.0.0.1 -u root -proot -e "CREATE DATABASE db_docker_symfony_test"
 
       - name: Load fixtures
         working-directory: ./project
