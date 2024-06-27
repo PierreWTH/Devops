@@ -33,9 +33,13 @@ jobs:
         php-version: '8.2'
         tools: composer
 
-    - name: Install dependencies
-      run: composer install --prefer-dist --no-progress
-      working-directory: project
+    # - name: Install dependencies
+    #   run: composer install --prefer-dist --no-progress
+    #   working-directory: project
+
+    - name: Init DB
+      run: docker exec -it www_docker_symfony bash -c "sh ./php/entrypoint.sh"
+      # working-directory: project
 
     - name: Run PHPStan
       run: composer phpstan

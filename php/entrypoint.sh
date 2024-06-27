@@ -5,7 +5,7 @@ set -e
 cd /var/www/project
 
 # Install composer dependencies
-composer install
+composer install --prefer-dist --no-progress
 
 # Check if the database exists, and if not, create it and run migrations
 # if ! php ../php/check_database.php; then
