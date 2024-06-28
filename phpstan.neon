@@ -1,0 +1,8 @@
+parameters:
+    level: 4
+    paths:
+        - project/src
+    bootstrapFiles:
+        - %rootDir%/../../autoload.php
+    parallel:
+        maximumNumberOfProcesses: 1

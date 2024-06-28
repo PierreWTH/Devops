@@ -1,0 +1,7 @@
+# config/services.yaml
+services:
+    App\Twig\ComposerExtension:
+        arguments:
+            $kernel: '@kernel'
+        tags:
+            - { name: twig.extension }

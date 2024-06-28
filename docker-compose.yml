@@ -1,3 +1,4 @@
+version: "3"
 services:
   db:
     image: mysql
@@ -7,6 +8,8 @@ services:
       - db-data:/var/lib/mysql
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_ROOT_PASSWORD: ''
+      MYSQL_DATABASE: transverse
     networks:
       - dev_docker_symfony
 
@@ -37,7 +40,7 @@ services:
 
 networks:
   dev_docker_symfony:
-    name: dev_docker_symfony
+    # name: dev_docker_symfony
 
 volumes:
   db-data:

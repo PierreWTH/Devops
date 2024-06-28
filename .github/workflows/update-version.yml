@@ -1,0 +1,40 @@
+name: Update Version from composer.json
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update-version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+
+      - name: Install dependencies
+        run: composer install
+        working-directory: project
+
+      - name: Read version from composer.json
+        id: read-version
+        run: |
+          VERSION=$(jq -r .version composer.json)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+        working-directory: project
+
+      - name: Create Git tag
+        if: env.VERSION != ''
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git tag ${{ env.VERSION }}
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git ${{ env.VERSION }}

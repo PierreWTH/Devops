@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Attribute\Groups;
 use App\Repository\CompanyRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -24,6 +25,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
     paginationEnabled: false,
     forceEager: false,
 )]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class Company implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]

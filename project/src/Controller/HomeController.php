@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Company;
 use App\Repository\ScoreRepository;
 use App\Repository\SynthesisRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,9 +25,16 @@ class HomeController extends AbstractController
   public function index(): Response
   {
     $syntheses = $this->synthesisRepository->findByUser();
+    if ($company = $this->getUser()) {
+      $companyName = $company instanceof Company ? $company->getName() : NULL;
+    }
+    else {
+      $companyName = NULL;
+    }
 
     return $this->render('home/account.html.twig', [
       'syntheses' => $syntheses,
+      'company_name' => $companyName,
     ]);
   }
 

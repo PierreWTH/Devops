@@ -22,8 +22,8 @@ RUN apt-get install nodejs -yqq
 WORKDIR /var/www/
 
 # Copy entrypoint script
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
+# COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+# RUN chmod +x /usr/local/bin/entrypoint.sh
 
 # Set the entrypoint script
 # ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

@@ -75,7 +75,7 @@ class QuestionFixtures extends Fixture implements DependentFixtureInterface
                 'answer0' => 'Non',
                 'answer1' => 'Un peu',
                 'answer2' => 'Oui',
-                'categoryReference' => CategoryFixtures::RH_REFERENCE
+                'categoryReference' => CategoryFixtures::GESTION_REFERENCE
             ],
             [
                 'text' => 'Valeur supérieure utilisable livrée plus tôt (Fonction principale utilisable dès les premières versions)',
@@ -465,7 +465,7 @@ class QuestionFixtures extends Fixture implements DependentFixtureInterface
             $question->setAnswer2($data['answer2']);
             $question->setCategory($this->getReference($data['categoryReference']));
             $manager->persist($question);
-            $this->addReference('question_' . $i+1, $question);
+            $this->addReference('question_' . ((int) $i + 1), $question);
         }
 
         $manager->flush();
