@@ -14,14 +14,12 @@ class SynthesisFixtures extends Fixture implements DependentFixtureInterface
     // Fetch a company from reference set by CompanyFixtures
     $company = $this->getReference('company_1');
 
-    for ($i = 0; $i < 10; $i++) {
-      $synthesis = new Synthesis();
-      $synthesis->setCompany($company);
-      $synthesis->setCreated(new \DateTime());
+    $synthesis = new Synthesis();
+    $synthesis->setCompany($company);
+    $synthesis->setCreated(new \DateTime());
 
-      $manager->persist($synthesis);
-      $this->addReference('synthesis_' . $i, $synthesis);
-    }
+    $manager->persist($synthesis);
+    $this->addReference('synthesis_0', $synthesis);
 
     $manager->flush();
   }

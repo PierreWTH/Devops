@@ -47,7 +47,7 @@ block body %}
   </div>
   {% if app.user %}
   <div class="text-center mt-4">
-    <a class="btn btn-success" href="{{ path('questions_skill') }}"
+    <a class="btn btn-success" href="{{ path('start_synthesis') }}"
       >Créer une nouvelle grille</a
     >
   </div>
@@ -57,7 +57,8 @@ block body %}
       >Connectez-vous pour créer une nouvelle grille</a
     >
   </div>
-  {% endif %} {% if syntheses is not null %}
+  {% endif %}
+  {% if syntheses is not null %}
   <section id="latest-evaluations" class="mt-5 mb-5">
     <h2>Mes dernières évaluations</h2>
     {% if syntheses|length > 0 %}
