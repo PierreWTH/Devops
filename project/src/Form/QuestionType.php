@@ -16,7 +16,7 @@ class QuestionType extends AbstractType
     $questions = $options['questions'];
 
     foreach ($questions as $index => $question) {
-      $builder->add('question_' . $index, ChoiceType::class, [
+      $builder->add('question_' . $question->getId(), ChoiceType::class, [
           'choices' => [
               '2' => 2,
               '1' => 1,
@@ -27,7 +27,7 @@ class QuestionType extends AbstractType
           'label'=> false,
           // 'attr' => ['class' => 'd-none'],
       ]);
-      $builder->add('comment_' . $index, null, [
+      $builder->add('comment_' . $question->getId(), null, [
           'label' => false,
           'attr' => [
             'placeholder' => 'Commentaire',
