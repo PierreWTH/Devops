@@ -53,14 +53,7 @@ class SynthesisRepository extends ServiceEntityRepository
   {
     /** @var \App\Entity\Company|null $company */
     $company = $this->security->getUser();
-
-    if (empty($company)) {
-      // To test without being logged in.
-      $id = 1;
-    }
-    else {
-      $id = $company->getId();
-    }
+    $id = $company->getId();
 
     return $this->createQueryBuilder('s')
       ->andWhere('s.company = :company_id')
