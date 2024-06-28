@@ -32,7 +32,6 @@ class QuestionsController extends AbstractController
     $axis = $this->axisRepository->find(1);
     $categories = $this->categoryRepository->findByAxis($axis);
     $questions = [];
-    $idPrefix = "skill";
 
     foreach ($categories as $category) {
       $categoryQuestions = $this->questionRepository->findByCategory($category);
@@ -42,7 +41,6 @@ class QuestionsController extends AbstractController
     $form = $this->createForm(QuestionType::class, null, ['questions' => $questions]);
 
     $form->handleRequest($request);
-    dd($form->isSubmitted(), $form);
     if ($form->isSubmitted() && $form->isValid()) {
 
       $data = $form->getData();
@@ -54,17 +52,15 @@ class QuestionsController extends AbstractController
       'form' => $form->createView(),
       'axis' => $axis,
       'categories' => $categories,
-      'idPrefix' => $idPrefix,
     ]);
   }
 
   #[Route('/questions/reactivity', name: 'questions_reactivity')]
   public function reactivity(Request $request): Response
   {
-    $axis = $this->axisRepository->find(1);
+    $axis = $this->axisRepository->find(2);
     $categories = $this->categoryRepository->findByAxis($axis);
     $questions = [];
-    $idPrefix = "reactivity";
 
     foreach ($categories as $category) {
       $categoryQuestions = $this->questionRepository->findByCategory($category);
@@ -85,17 +81,15 @@ class QuestionsController extends AbstractController
       'form' => $form->createView(),
       'axis' => $axis,
       'categories' => $categories,
-      'idPrefix' => $idPrefix,
     ]);
   }
 
   #[Route('/questions/numeric', name: 'questions_numeric')]
   public function numeric(Request $request): Response
   {
-    $axis = $this->axisRepository->find(1);
+    $axis = $this->axisRepository->find(3);
     $categories = $this->categoryRepository->findByAxis($axis);
     $questions = [];
-    $idPrefix = "numeric";
 
     foreach ($categories as $category) {
       $categoryQuestions = $this->questionRepository->findByCategory($category);
@@ -109,14 +103,42 @@ class QuestionsController extends AbstractController
 
       $data = $form->getData();
 
-      return $this->redirectToRoute('questions_');
+      return $this->redirectToRoute('questions_analysis');
     }
 
     return $this->render('forms/questions.html.twig', [
       'form' => $form->createView(),
       'axis' => $axis,
       'categories' => $categories,
-      'idPrefix' => $idPrefix,
+    ]);
+  }
+
+  #[Route('/questions/analysis', name: 'questions_analysis')]
+  public function analysis(Request $request): Response
+  {
+    $axis = $this->axisRepository->find(4);
+    $categories = $this->categoryRepository->findByAxis($axis);
+    $questions = [];
+
+    foreach ($categories as $category) {
+      $categoryQuestions = $this->questionRepository->findByCategory($category);
+      $questions = array_merge($questions, $categoryQuestions);
+    }
+
+    $form = $this->createForm(QuestionType::class, null, ['questions' => $questions]);
+
+    $form->handleRequest($request);
+    if ($form->isSubmitted() && $form->isValid()) {
+
+      $data = $form->getData();
+
+      return $this->redirectToRoute('app_home');
+    }
+
+    return $this->render('forms/questions.html.twig', [
+      'form' => $form->createView(),
+      'axis' => $axis,
+      'categories' => $categories,
     ]);
   }
 }

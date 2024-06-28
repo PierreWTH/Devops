@@ -13,9 +13,7 @@
         <tr>
           <th>Items</th>
           <th>Questionnements</th>
-          <th>2</th>
-          <th>1</th>
-          <th>0</th>
+          <th>Score</th>
 					<th>Commentaire</th>
         </tr>
       </thead>
@@ -28,24 +26,16 @@
                 <td rowspan="{{ category.questions|length }}">{{ category.name }}</td>
               {% endif %}
               <td>{{ question.text }}</td>
-              <td>
-                <input type="radio" id="{{ idPrefix ~ "_question_" ~ i ~ "_0" }}" name="{{ idPrefix ~ "[question_" ~ i ~ "]" }}" required="required" value="2">
-              </td>
-              <td>
-                <input type="radio" id="{{ idPrefix ~ "_question_" ~ i ~ "_1" }}" name="{{ idPrefix ~ "[question_" ~ i ~ "]" }}" required="required" value="1">
-              </td>
-							<td>
-                <input type="radio" id="{{ idPrefix ~ "_question_" ~ i ~ "_2" }}" name="{{ idPrefix ~ "[question_" ~ i ~ "]" }}" required="required" value="0">
-              </td>
+              <td>{{ form_widget(form['question_' ~ i]) }}</td>
 							<td>{{ form_widget(form['comment_' ~ i]) }}</td>
-            </tr> 
+            </tr>
             {% set i = i + 1 %}
           {% endfor %}
         {% endfor %}
       </tbody>
     </table>
     {{ form_widget(form.submit) }}
-    {{ form_end(form, {'render_rest': false}) }}
+    {{ form_end(form) }}
 
   </div>
 {% endblock %}
