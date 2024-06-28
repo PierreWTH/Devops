@@ -64,13 +64,16 @@ class QuestionsController extends AbstractController
       $data = $form->getData();
       $handledData = [];
       $couple = [];
+      $id = 0;
       foreach ($data as $key => $value) {
         $matches = [];
-        if (preg_match("/^question\_/", $key, $matches)) {
+        if (preg_match("/^question\_([0-9]+)/", $key, $matches)) {
+          // dump($key, $matches);
           $couple['grade'] = $value;
+          $id = $matches[1];
         } else {
           $couple['comment'] = $value;
-          $handledData[reset($matches)] = $couple;
+          $handledData[$id] = $couple;
           $couple = [];
         }
       }
@@ -86,10 +89,11 @@ class QuestionsController extends AbstractController
         $score->setQuestion($question);
         $manager->persist($score);
       }
+      $manager->flush();
 
       return $this->redirectToRoute('synthesis_continue', [
         'synth' => $synthesis->getId(),
-        'axis' => 2,
+        'axis_id' => 2,
       ]);
     }
 
@@ -103,7 +107,7 @@ class QuestionsController extends AbstractController
   #[Route('/synthesis_continue/{synth}/{axis_id}', name: 'synthesis_continue')]
   public function synthesis_continue(EntityManagerInterface $manager, Request $request, $synth, $axis_id): Response
   {
-    $synthesis = $this->synthesisRepository->find($axis_id);
+    $synthesis = $this->synthesisRepository->find($synth);
     $axis = $this->axisRepository->find($axis_id);
     if (is_null($synthesis) || is_null($axis)) {
       return $this->redirectToRoute('app_home');
@@ -130,13 +134,15 @@ class QuestionsController extends AbstractController
       $data = $form->getData();
       $handledData = [];
       $couple = [];
+      $id = 0;
       foreach ($data as $key => $value) {
         $matches = [];
-        if (preg_match("/^question\_/", $key, $matches)) {
+        if (preg_match("/^question\_([0-9]+)/", $key, $matches)) {
           $couple['grade'] = $value;
+          $id = $matches[1];
         } else {
           $couple['comment'] = $value;
-          $handledData[reset($matches)] = $couple;
+          $handledData[$id] = $couple;
           $couple = [];
         }
       }
@@ -152,9 +158,10 @@ class QuestionsController extends AbstractController
         $score->setQuestion($question);
         $manager->persist($score);
       }
+      $manager->flush();
 
       return $this->redirectToRoute('synthesis_continue', [
-        'synth' => $synthesis->getId(),
+        'synth' => $synth,
         'axis_id' => $axis_id + 1,
       ]);
     }
@@ -166,61 +173,4 @@ class QuestionsController extends AbstractController
     ]);
   }
 
-  #[Route('/questions/numeric', name: 'questions_numeric')]
-  public function numeric(Request $request): Response
-  {
-    $axis = $this->axisRepository->find(3);
-    $categories = $this->categoryRepository->findByAxis($axis);
-    $questions = [];
-
-    foreach ($categories as $category) {
-      $categoryQuestions = $this->questionRepository->findByCategory($category);
-      $questions = array_merge($questions, $categoryQuestions);
-    }
-
-    $form = $this->createForm(QuestionType::class, null, ['questions' => $questions]);
-
-    $form->handleRequest($request);
-    if ($form->isSubmitted() && $form->isValid()) {
-
-      $data = $form->getData();
-
-      return $this->redirectToRoute('questions_analysis');
-    }
-
-    return $this->render('forms/questions.html.twig', [
-      'form' => $form->createView(),
-      'axis' => $axis,
-      'categories' => $categories,
-    ]);
-  }
-
-  #[Route('/questions/analysis', name: 'questions_analysis')]
-  public function analysis(Request $request): Response
-  {
-    $axis = $this->axisRepository->find(4);
-    $categories = $this->categoryRepository->findByAxis($axis);
-    $questions = [];
-
-    foreach ($categories as $category) {
-      $categoryQuestions = $this->questionRepository->findByCategory($category);
-      $questions = array_merge($questions, $categoryQuestions);
-    }
-
-    $form = $this->createForm(QuestionType::class, null, ['questions' => $questions]);
-
-    $form->handleRequest($request);
-    if ($form->isSubmitted() && $form->isValid()) {
-
-      $data = $form->getData();
-
-      return $this->redirectToRoute('app_home');
-    }
-
-    return $this->render('forms/questions.html.twig', [
-      'form' => $form->createView(),
-      'axis' => $axis,
-      'categories' => $categories,
-    ]);
-  }
 }
